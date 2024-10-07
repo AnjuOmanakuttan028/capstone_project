@@ -4,19 +4,17 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Toast;
 
-import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.graphics.Insets;
-import androidx.core.view.ViewCompat;
-import androidx.core.view.WindowInsetsCompat;
 
 import com.example.cropcrew_capstoneproject.databinding.ActivitySignUpBinding;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.firestore.FirebaseFirestore;
 
 public class SignUp extends AppCompatActivity implements View.OnClickListener{
 
     ActivitySignUpBinding signUpBinding;
     FirebaseAuth firebaseAuth;
+    FirebaseFirestore firestore;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,11 +31,41 @@ public class SignUp extends AppCompatActivity implements View.OnClickListener{
 
     @Override
     public void onClick(View v) {
+        String email = signUpBinding.emailEdtTxt.getText().toString().trim();
+        String password = signUpBinding.passwordEdtTxt.getText().toString().trim();
         if(validate()){
+            firebaseAuth.createUserWithEmailAndPassword(email, password)
+                    .addOnCompleteListener(this, task -> {
+                        if (task.isSuccessful()) {
+                            saveUserInfo();
+                        } else {
+                            Toast.makeText(SignUp.this, "Registration failed: " , Toast.LENGTH_SHORT).show();
+                        }
+                    });
 
         }
 
 
+    }
+    public void saveUserInfo() {
+        String userId = firebaseAuth.getCurrentUser().getUid();
+        String firstName = signUpBinding.firstNameEdtTxt.getText().toString().trim();
+        String lastName = signUpBinding.lastNameEdtTxt.getText().toString().trim();
+        String phoneNumber = signUpBinding.phoneNumberEdtTxt.getText().toString().trim();
+        String email = signUpBinding.emailEdtTxt.getText().toString().trim();
+        String password = signUpBinding.passwordEdtTxt.getText().toString().trim();
+
+        User user = new User(firstName, lastName, phoneNumber, email, password);
+
+        firestore.collection("users").document(userId)
+                .set(user)
+                .addOnSuccessListener(aVoid -> {
+                    Toast.makeText(SignUp.this, "User information saved", Toast.LENGTH_SHORT).show();
+
+                })
+                .addOnFailureListener(e -> {
+                    Toast.makeText(SignUp.this, "Failed to save user information: " , Toast.LENGTH_SHORT).show();
+                });
     }
     public Boolean validate(){
         if (signUpBinding.firstNameEdtTxt.getText().toString().isEmpty()) {
