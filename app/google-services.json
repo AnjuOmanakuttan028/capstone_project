@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "78756104092",
+    "project_id": "cropcrew-capstoneproject",
+    "storage_bucket": "cropcrew-capstoneproject.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:78756104092:android:ad728fe47b23438f1d2a59",
+        "android_client_info": {
+          "package_name": "com.example.cropcrew_capstoneproject"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAD9i0-YyyugUw3CZc4d4gYVI7YfFsUCC0"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

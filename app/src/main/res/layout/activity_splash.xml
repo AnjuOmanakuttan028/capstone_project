@@ -12,9 +12,9 @@
         android:id="@+id/splash_text"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginBottom="24dp"
         android:text="CROPCREW"
-        android:textColor="@android:color/holo_green_light"
-        android:textSize="32sp"
-        android:textStyle="bold"
-        android:layout_marginBottom="24dp"/>
+        android:textColor="@color/crop_green"
+        android:textSize="40sp"
+        android:textStyle="bold" />
 </LinearLayout>
