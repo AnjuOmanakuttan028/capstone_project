@@ -23,6 +23,7 @@ public class SignUp extends AppCompatActivity implements View.OnClickListener{
         View view = signUpBinding.getRoot();
         setContentView(view);
         firebaseAuth = FirebaseAuth.getInstance();
+        firestore = FirebaseFirestore.getInstance();
         init();
     }
     public void init(){
@@ -88,7 +89,7 @@ public class SignUp extends AppCompatActivity implements View.OnClickListener{
         }
 
         if (signUpBinding.passwordEdtTxt.getText().toString().isEmpty()) {
-            signUpBinding.passwordEdtTxt.setError("Password is required");
+            signUpBinding.passwordEdtTxt.setError("Password is required and should be 6 characters long");
             return false;
         }
         if (signUpBinding.confirmPasswordEdtTxt.getText().toString().isEmpty()) {
@@ -96,7 +97,7 @@ public class SignUp extends AppCompatActivity implements View.OnClickListener{
             return false;
         }
 
-        if (!signUpBinding.passwordEdtTxt.toString().equals(signUpBinding.confirmPasswordEdtTxt.toString())) {
+        if (!signUpBinding.passwordEdtTxt.getText().toString().equals(signUpBinding.confirmPasswordEdtTxt.getText().toString())) {
             Toast.makeText(this, "Passwords do not match", Toast.LENGTH_SHORT).show();
             return false;
         }
